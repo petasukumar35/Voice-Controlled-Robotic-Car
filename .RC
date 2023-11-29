@@ -1,0 +1,306 @@
+#include <SoftwareSerial.h>
+// include the library code:
+#include <LiquidCrystal.h>
+
+SoftwareSerial BT(0, 1); 
+String readvoice;
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(8, 3, 2, A2, A3, A4);
+
+
+// Your threshold value
+int sensorThres = 400;
+// defines pins numbers
+const int trigPin = 10;
+const int echoPin = 11;
+// defines variables
+long duration;
+int distance;
+
+void setup() {
+ BT.begin(9600);
+ Serial.begin(9600);
+ pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+ pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(9,OUTPUT);
+  pinMode(12,OUTPUT);
+  digitalWrite(9,HIGH);
+  digitalWrite(12,LOW);
+    // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("Meflux Turbo");
+}
+
+void loop() {
+
+     // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0):
+  lcd.setCursor(0, 1);
+  // print the number of seconds since reset:
+  lcd.print(millis() / 1000);
+  //obstacle
+// Clears the trigPin
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+// Sets the trigPin on HIGH state for 10 micro seconds
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+// Reads the echoPin, returns the sound wave travel time in microseconds
+duration = pulseIn(echoPin, HIGH);
+// Calculating the distance
+distance= duration*0.034/2;
+// Prints the distance on the Serial Monitor
+if(distance<=10){
+  digitalWrite(13,HIGH);
+  return;
+  }
+else{
+  digitalWrite(13,LOW);
+}
+  while (BT.available()){  
+  delay(10);
+  char c = BT.read(); 
+  readvoice += c; 
+  } 
+  if (readvoice.length() > 0) {
+    Serial.println(readvoice);
+
+  if(readvoice == "forward")
+  {
+    digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(100);
+  }
+
+  else if(readvoice == "back")
+  {
+    digitalWrite(4, LOW);
+    digitalWrite(5, LOW);
+    digitalWrite(6, HIGH);
+    digitalWrite(7,HIGH);
+    delay(100);
+  }
+
+  else if (readvoice == "right")
+  {
+    digitalWrite (4,HIGH);
+    digitalWrite (5,LOW);
+    digitalWrite (6,LOW);
+    digitalWrite (7,LOW);
+   delay (2000);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(100);
+
+  }
+
+ else if ( readvoice == "left")
+ {
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (2000);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(100);
+ }
+
+ else if (readvoice == "stop")
+ {
+   digitalWrite (4, LOW);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (100);
+ }
+ else if (readvoice == "look")
+ {
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (100);
+ }
+  else if (readvoice == "dance")
+ {
+ digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (4000);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(6000);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (5000);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (5000);
+
+digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6, LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+   digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, LOW);
+   digitalWrite (7, LOW);
+   delay (400);
+      digitalWrite(4, HIGH);
+    digitalWrite (5, HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(7,LOW);
+    delay(600);
+    digitalWrite (4, LOW);
+   digitalWrite (5, HIGH);
+   digitalWrite (6, HIGH);
+   digitalWrite (7, LOW);
+   delay (500);
+   digitalWrite (4, HIGH);
+   digitalWrite (5, LOW);
+   digitalWrite (6, LOW);
+   digitalWrite (7, HIGH);
+   delay (500);
+
+ }
+
+
+ readvoice="";}} 
